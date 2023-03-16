@@ -29,14 +29,24 @@ if uploaded_file:
             st.success("Text extraction complete.")
 
             model = BartForConditionalGeneration.from_pretrained("sshleifer/distilbart-cnn-12-6")
-            tokenizer = BartTokenizer.from_pretrained("sshleifer/distilbart-cnn-12-6")
+           
 
-            inputs = tokenizer([all_pages_text], truncation=True, return_tensors="pt")
 
-            summary_ids = model.generate(inputs["input_ids"], num_beams=10, early_stopping=True, min_length=600, max_length=10024)
-            summarized_text = [tokenizer.decode(g, skip_special_tokens=True, clean_up_tokenization_spaces=True) for g in summary_ids]
-
-            with open(output_filename, "w") as f:
-                f.write(summarized_text[0])
-            st.success(f"Summary saved to {output_filename}")
-            st.write(summarized_text[0])
+            try:
+                import torch
+            except ImportError:
+                st.error("PyTorch library not found. Please install it and restart the runtime.")
+            else:
+                # The rest of the code that depends on PyTorch
+                model = BartForConditionalGeneration.from_pretrained("sshleifer/distilbart-cnn-12-6")
+                tokenizer = BartTokenizer.from_pretrained("sshleifer/distilbart-cnn-12-6")
+            
+                inputs = tokenizer([all_pages_text], truncation=True, return_tensors="pt")
+            
+                summary_ids = model.generate(inputs["input_ids"], num_beams=10, early_stopping=True, min_length=600, max_length=10024)
+                summarized_text = [tokenizer.decode(g, skip_special_tokens=True, clean_up_tokenization_spaces=True) for g in summary_ids]
+            
+                with open(output_filename, "w") as f:
+                    f.write(summarized_text[0])
+                st.success(f"Summary saved to {output_filename}")
+                st.write(summarized_text[0])
