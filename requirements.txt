@@ -1,5 +1,6 @@
-altair
+ altair
 pandas
 streamlit
 pdfplumber
 transformers
+torch
