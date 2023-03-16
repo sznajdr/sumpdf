@@ -2,5 +2,4 @@
 pandas
 streamlit
 pdfplumber
-transformers
-torch
+sumy
