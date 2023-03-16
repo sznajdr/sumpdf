@@ -4,3 +4,4 @@ streamlit
 pdfplumber
 sumy
 nltk
+punkt
