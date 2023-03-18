@@ -2,6 +2,4 @@
 pandas
 streamlit
 pdfplumber
-sumy
-nltk
-punkt
+transformers
